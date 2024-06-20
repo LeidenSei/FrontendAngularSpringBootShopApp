@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserService } from '../services/user.service';
+import { RegisterDTO } from '../dtos/register.dto';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,7 @@ export class RegisterComponent {
   isAccepted: boolean;
   dateOfBirth: Date;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private router: Router,private userService:UserService) {
     this.phone = '';
     this.password = '';
     this.retypePassword = '';
@@ -38,8 +40,8 @@ export class RegisterComponent {
       + `address: ${this.address}` + `isAccepted: ${this.isAccepted}` + `dateOfBirth: ${this.dateOfBirth}`
     // alert(msg)
     
-    const apiUrl = "http://localhost:8088/api/v1/users/register"
-    const registerData = {
+   
+    const registerDTO:RegisterDTO = {
       fullname: this.fullName,
       phone_number: this.phone,
       address: this.address,
@@ -51,10 +53,10 @@ export class RegisterComponent {
       role_id: 1,
     };
 
-    console.log(registerData);
+    console.log(registerDTO);
     
-    const headers = new HttpHeaders({ 'content-type': 'application/json' })
-    this.http.post(apiUrl, registerData, { headers: headers })
+    
+    this.userService.register(registerDTO)
       .subscribe({
         next: (response: any) => {
           if (response ) {
