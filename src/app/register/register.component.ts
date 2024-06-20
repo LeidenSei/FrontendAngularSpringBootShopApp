@@ -38,7 +38,7 @@ export class RegisterComponent {
       + `address: ${this.address}` + `isAccepted: ${this.isAccepted}` + `dateOfBirth: ${this.dateOfBirth}`
     // alert(msg)
     
-    const apiUrl = "localhost:8088/api/v1/users/register"
+    const apiUrl = "http://localhost:8088/api/v1/users/register"
     const registerData = {
       fullname: this.fullName,
       phone_number: this.phone,
@@ -57,8 +57,9 @@ export class RegisterComponent {
     this.http.post(apiUrl, registerData, { headers: headers })
       .subscribe({
         next: (response: any) => {
-          if (response && (response.status === 200 || response.status === 201)) {
-            this.router.navigate(['/login'])
+          if (response ) {
+            form.resetForm();
+            // this.router.navigate(['/login'])
           } else {
 
           }
