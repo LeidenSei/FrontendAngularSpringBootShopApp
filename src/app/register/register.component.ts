@@ -31,13 +31,13 @@ export class RegisterComponent {
   onPhoneChange() {
     console.log(`PHone typed: ${this.phone}`)
   }
-  register() {
+  register(form: NgForm) {
     const msg = `phone: ${this.phone}` + `password: ${this.password}`
       + `retypePassword: ${this.retypePassword}` + `fullName: ${this.fullName}`
       + `address: ${this.address}` + `isAccepted: ${this.isAccepted}` + `dateOfBirth: ${this.dateOfBirth}`
     // alert(msg)
     
-    const apiUrl = "localhost:8088/api/v1/users/register"
+    const apiUrl = "http://localhost:8088/api/v1/users/register"
     const registerData = {
       "fullname": this.fullName,
       "phone_number": this.phone,
@@ -51,15 +51,14 @@ export class RegisterComponent {
     }
     console.log(registerData);
     
-    const headers = new HttpHeaders({ 'content-type': 'application/json' })
-    this.http.post(apiUrl, registerData, { headers: headers })
+    const headers = new HttpHeaders({ 'Content-type': 'application/json' })
+    this.http.post(apiUrl, registerData, { headers })
       .subscribe({
-        next: (response: any) => {
-          if (response && (response.status === 200 || response.status === 201)) {
-            this.router.navigate(['/login'])
-          } else {
-
-          }
+        next: (response: any) => {      
+          if (response ) {
+            form.resetForm();
+            // this.router.navigate(['/login'])
+          } 
         },
         complete() {
 
