@@ -23,7 +23,6 @@
                     [(ngModel)]="password"
                     required 
                     class="form-control" id="password">
-        
                     <i class="password-toggle fas fa-eye-slash"></i>
                     <div class="divider-nospace"></div>
                     <p class="text-danger" *ngIf="password.length < 3 && registerForm.form.touched">Ít nhất 3 kí tự</p>
@@ -76,7 +75,7 @@
                 <div class="form-group">
                     <div class="form-check checkbox-text">
                         <span style="display: flex;">
-                            <input type="checkbox" class="form-check-input" name="" id="agree">
+                            <input type="checkbox" [(ngModel)]="isAccepted" class="form-check-input" name="isAccepted" id="agree">
                             <label class="form-check-label text-start">
                                 Tôi đồng ý với các điều khoản điều kiện
                             </label>
