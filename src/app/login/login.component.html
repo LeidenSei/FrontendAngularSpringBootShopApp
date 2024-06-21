@@ -1,18 +1,28 @@
 <app-header></app-header>
 <div class="container">
+    <form #loginForm = "ngForm">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="login-form mx-auto">
                 <h2 class="login-header">Đăng nhập</h2>
                 <div class="form-group">
                     <label for="email">Email/Phone</label>
-                    <input type="text" name="" id="email" class="form-control">
+                    <input type="text" name="phoneNumber" 
+                    [(ngModel)]="phoneNumber" 
+                    (focus) = "loginForm.form.markAsTouched()"
+                    (input) = "onPhoneChange()"
+                    id="email" class="form-control">
                     <div class="divider-nospace"></div>
+                    <p class="text-danger" *ngIf="phoneNumber.length < 6 && loginForm.form.touched">Ít nhất 6 kí tự</p>
                 </div>
                 <div class="mt-5"></div>
                 <div class="form-group password-field">
                     <label for="password">Mật Khẩu</label>
-                    <input type="password" placeholder="Ít nhất 3 kí tự" class="form-control" id="password">
+                    <input type="password" placeholder="Ít nhất 3 kí tự"
+                    name="password"
+                    [(ngModel)]="password"
+                    required 
+                    class="form-control" id="password">
                     <i class="password-toggle fas fa-eye-slash"></i>
                     <div class="divider-nospace"></div>
                 </div>
@@ -35,7 +45,7 @@
                         <option>Quản trị viên</option>
                     </select>
                 </div>
-                <button type="button" class="login-button">Đăng nhập</button>
+                <button type="button" (click)="login(loginForm)" class="login-button">Đăng nhập</button>
                 <div class="divider"></div>
                 <p class="text-center">Bạn chưa đăng ký? <span>
                         <a href="" class="register-link"></a>
@@ -44,5 +54,7 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
+
 <app-footer></app-footer>

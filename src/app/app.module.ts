@@ -35,8 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     // HomeComponent,
     // OrderComponent,
     // OrderConfirmComponent,
-    // LoginComponent
-    RegisterComponent
+    LoginComponent
+    // RegisterComponent
     // DetailProductComponent
   ]
 })
