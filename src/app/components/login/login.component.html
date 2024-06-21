@@ -10,7 +10,7 @@
                     <input type="text" name="phoneNumber" 
                     [(ngModel)]="phoneNumber" 
                     (focus) = "loginForm.form.markAsTouched()"
-                    (input) = "onPhoneChange()"
+                    
                     id="email" class="form-control">
                     <div class="divider-nospace"></div>
                     <p class="text-danger" *ngIf="phoneNumber.length < 6 && loginForm.form.touched">Ít nhất 6 kí tự</p>
@@ -39,10 +39,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <select class="form-control access-right" name="" id="">
+                    <select class="form-control access-right" [(ngModel)]="selectedRole">
                         <option selected disabled>Quyền đăng nhập</option>
-                        <option>Người dùng</option>
-                        <option>Quản trị viên</option>
+                        <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
+                       
                     </select>
                 </div>
                 <button type="button" (click)="login()" class="login-button">Đăng nhập</button>

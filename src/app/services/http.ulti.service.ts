@@ -1,0 +1,14 @@
+import {  HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpUtilService {
+ 
+  public createHeaders(): HttpHeaders {
+    return new HttpHeaders({ 'Content-type': 'application/json' });
+  }
+
+}
