@@ -21,7 +21,9 @@ export class LoginComponent {
   roles: Role[] = [];
   selectedRole : Role | undefined; 
 
-  constructor(private router: Router, private userService: UserService,private tokenService: TokenService,private roleService:RoleService) {
+  constructor(private router: Router
+    , private userService: UserService,private tokenService: TokenService
+    ,private roleService:RoleService) {
 
   }
 
@@ -30,6 +32,8 @@ export class LoginComponent {
       next: (response: Role[]) => {
 
        this.roles=response;
+       console.log(this.roles);
+       
        console.log(this.roles);
        
        this.selectedRole = this.roles.length > 0 ? this.roles[0] : undefined;
@@ -60,9 +64,8 @@ export class LoginComponent {
       .subscribe({
         next: (response: LoginResponse) => {
           const { token } = response
-          console.log(token);
+          console.log(response);
           this.tokenService.setToken(token);
-          // this.router.navigate(['/login'])
           
         },
         complete() {
