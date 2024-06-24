@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/app/environment/environment';
+import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,25 +12,48 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
+  categorires: Category[]=[];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 9;
   totalPages: number = 0;
   visiblePages: number[] = [];
+  keyword: string = '';
+  selectedCategoryId: number = 0;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,private categoryService:CategoryService) { }
 
   ngOnInit(): void {
-    this.getProducts(this.currentPage, this.itemsPerPage);
+    this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    this.getCategories(1,100)
   }
 
-  getProducts(page: number, limit: number) {
-    this.productService.getProducts(page, limit).subscribe({
+  getCategories(page:number, limit:number){
+    this.categoryService.getCategory(page,limit).subscribe({
+      next: (categorires:Category[]) =>{
+        this.categorires= categorires;
+      },
+      complete: ()=>{},
+      error: (error: any) => {
+        // Log error details
+        console.error("Error fetching categories:", error);
+      }
+    })
+  }
+
+  searchProduct() {
+    this.currentPage = 1;
+    this.itemsPerPage = 9;
+    this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage)
+  }
+
+  getProducts(keyword: string, selectedCategoryId: number, page: number, limit: number) {
+    this.productService.getProducts(keyword,selectedCategoryId,page, limit).subscribe({
       next: (response: any) => {
         console.log("API Response:", response);
         if (response && response.products) {
           response.products.forEach((product: Product) => {
-            product.url = product.thumbnail 
-              ? `${environment.apiBaseUrl}/products/images/${product.thumbnail}` 
+            product.url = product.thumbnail
+              ? `${environment.apiBaseUrl}/products/images/${product.thumbnail}`
               : 'https://static.wikia.nocookie.net/violet-evergarden/images/a/ae/Violet_Evergarden.png/revision/latest?cb=20180209195829';
           });
 
@@ -61,7 +86,7 @@ export class HomeComponent implements OnInit {
   onPageChange(page: number) {
     console.log("Changing to page:", page);
     this.currentPage = page;
-    this.getProducts(this.currentPage, this.itemsPerPage);
+    this.getProducts(this.keyword, this.selectedCategoryId,this.currentPage, this.itemsPerPage);
   }
 
   generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
