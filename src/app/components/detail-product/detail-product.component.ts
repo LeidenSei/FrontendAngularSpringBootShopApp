@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from 'src/app/environment/environment';
 import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,11 +14,12 @@ export class DetailProductComponent {
   product?: Product;
   productId: number = 0;
   currentImageIndex: number = 0;
+  quantity:number =1;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,private cartService:CartService) { }
 
   ngOnInit() {
-    const idParam = 3
+    const idParam = 4
     if (idParam !== null) {
       this.productId = +idParam;
     }
@@ -62,4 +64,30 @@ export class DetailProductComponent {
   previousImage():void{
     this.showImage(this.currentImageIndex - 1);
   }
+
+  addToCart():void{
+    if(this.product){
+      this.cartService.addToCart(this.product.id,this.quantity)
+    }else{
+      console.log("khong the them gio hang vi product null");
+    }
+  }
+
+  increaseQuantity():void{
+    this.quantity++;
+  }
+  decreaseQuantity():void{
+    if(this.quantity > 1){
+      this.quantity--;
+    }
+  }
+
+  buyNow():void{
+    if(this.product){
+      this.cartService.addToCart(this.product.id,1)
+    }else{
+      console.log("khong the them gio hang vi product null");
+    }
+  }
+
 }
