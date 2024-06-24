@@ -19,7 +19,7 @@ export class DetailProductComponent {
   constructor(private productService: ProductService,private cartService:CartService) { }
 
   ngOnInit() {
-    const idParam = 4
+    const idParam = 9
     if (idParam !== null) {
       this.productId = +idParam;
     }

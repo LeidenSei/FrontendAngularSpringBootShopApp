@@ -41,10 +41,10 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   bootstrap: [
     // HomeComponent,
     // OrderComponent,
-    // OrderConfirmComponent,
+    OrderConfirmComponent,
     // LoginComponent
     // RegisterComponent
-    DetailProductComponent
+    // DetailProductComponent
   ]
 })
 export class AppModule { }

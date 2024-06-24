@@ -21,4 +21,8 @@ export class ProductService {
   getDetailProduct(productId:number){
     return this.HttpClient.get(`${this.apiGetProducts}/${productId}`)
   }
+  getProductByIds(productIds: number[]):Observable<Product[]>{
+    const params = new HttpParams().set('ids', productIds.join(','));
+    return this.HttpClient.get<Product[]>(`${this.apiGetProducts}/by-ids`, { params })
+  }
 }

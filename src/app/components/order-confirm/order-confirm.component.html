@@ -15,35 +15,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let item of cartItems">
                     <td>
                         <div class="product-info">
-                            <img src="https://images.pexels.com/photos/719396/pexels-photo-719396.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            <img [src]="item.product.thumbnail"
                                 alt="" class="product-image">
-                            <span class="product-name">Tên sản phẩm</span>
+                            <span class="product-name">{{ item.product.name }}</span>
                         </div>
                     </td>
-                    <td>2</td>
-                    <td>100.000</td>
-                    <td>200.000</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img src="https://images.pexels.com/photos/719396/pexels-photo-719396.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                alt="" class="product-image">
-                            <span class="product-name">Tên sản phẩm</span>
-                        </div>
-                    </td>
-                    <td>2</td>
-                    <td>100.000</td>
-                    <td>200.000</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{ item.product.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
+                    <td>{{ item.product.price * item.quantity | currency:'VND': 'symbol' : '1.0-0' }}</td>
                 </tr>
             </tbody>
         </table>
-        <div class="text-center mt-3">
-            <button class="btn btn-gradient" type="button">tiếp tục mua sắm</button>
+        <div class="row justify-content-center align-item-center">
+            <div class="form-group mb-3 mt-3 row justify-content-center align-item-center">
+                <div class="col-lg-6">
+                    <input type="text"
+                    class="form-control" [(ngModel)]="couponCode" name="" id="" aria-describedby="helpId" placeholder="">
+                </div>
+                  <div class="input-group-append col-lg-6" style="margin-left: 10px;">
+                      <button class="btn btn-outline-secondary" type="button" (click)="applyCoupon()">Ap dung ma</button>
+                  </div>
+              </div>
+              <div>
+                <p class="mb-0">Tong tien: {{ totalAmount | currency:'VND': 'symbol' : '1.0-0' }}</p>
+                <div class="text-center mt-3">
+                    <button class="btn btn-gradient" type="button">Dat hang</button>
+                </div>
+              </div>
         </div>
     </div>
+
 </div>
+
 <app-footer></app-footer>
