@@ -25,18 +25,22 @@ export class HomeComponent implements OnInit {
     this.productService.getProducts(page, limit).subscribe({
       next: (response: any) => {
         console.log("API Response:", response);
-        if (response && response[0]?.products) {
-          const productData = response[0].products;
-          productData.forEach((product: Product) => {
-            if (product.thumbnail) {
-              product.url = `${environment.apiBaseUrl}/products/images/${product.thumbnail}`;
-            } else {
-              product.url = 'https://static.wikia.nocookie.net/violet-evergarden/images/a/ae/Violet_Evergarden.png/revision/latest?cb=20180209195829';
-            }
+        if (response && response.products) {
+          response.products.forEach((product: Product) => {
+            product.url = product.thumbnail 
+              ? `${environment.apiBaseUrl}/products/images/${product.thumbnail}` 
+              : 'https://static.wikia.nocookie.net/violet-evergarden/images/a/ae/Violet_Evergarden.png/revision/latest?cb=20180209195829';
           });
-          this.products = productData;
-          this.totalPages = response[0].totalPages;
+
+          this.products = response.products;
+
+          this.totalPages = response.totalPages || Math.ceil(response.totalCount / this.itemsPerPage);
+
           this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+
+          console.log("Products loaded:", this.products);
+          console.log("Total pages:", this.totalPages);
+          console.log("Visible pages:", this.visiblePages);
         } else {
           console.error("Products array is missing in the response", response);
           this.products = [];
@@ -44,14 +48,18 @@ export class HomeComponent implements OnInit {
           this.visiblePages = [];
         }
       },
-      complete: () => {},
+      complete: () => {
+        console.log("API call completed");
+      },
       error: (error: any) => {
-        console.log(error);
+        // Log error details
+        console.error("Error fetching products:", error);
       }
     });
   }
 
   onPageChange(page: number) {
+    console.log("Changing to page:", page);
     this.currentPage = page;
     this.getProducts(this.currentPage, this.itemsPerPage);
   }
