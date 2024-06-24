@@ -18,4 +18,7 @@ export class ProductService {
     .set('limit', limit.toString())
     return this.HttpClient.get<Product[]>(this.apiGetProducts, { params })
   }
+  getDetailProduct(productId:number){
+    return this.HttpClient.get(`${this.apiGetProducts}/${productId}`)
+  }
 }
