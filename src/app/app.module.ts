@@ -11,7 +11,7 @@ import { DetailProductComponent } from './components/detail-product/detail-produ
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
  
@@ -29,6 +29,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [

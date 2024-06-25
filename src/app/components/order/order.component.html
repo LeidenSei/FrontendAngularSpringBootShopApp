@@ -3,25 +3,46 @@
     <div class="intro-section">
         <h1>Đặt hàng</h1>
     </div>
+    <form [formGroup]="orderForm">
     <div class="row">
         <div class="col-md-6">
             <h2 class="product-header">Thông tin người nhận</h2>
             <!-- <form class="form-inline"> -->       
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ và tên</label>
-                    <input type="text" [(ngModel)]="orderData.fullname" name="" id="name" class="form-control">
+                    <input type="text" [(ngModel)]="orderData.fullname" formControlName="fullname" name="" id="name" class="form-control"
+                    [class.is-invalid]="orderForm.get('fullname')!.invalid && orderForm.get('fullname')?.touched"
+                    >
+                    <div *ngIf="orderForm.get('fullname')!.invalid && orderForm.get('fullname')?.touched" class="invalid-feedback">
+                        Họ và tên là trường bắt buộc
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" [(ngModel)]="orderData.email" name="" id="email" class="form-control">
+                    <input type="text" [(ngModel)]="orderData.email" formControlName="email" id="email" class="form-control"
+                    [class.is-invalid]="orderForm.get('email')!.invalid && orderForm.get('email')?.touched"
+                    >
+                    <div *ngIf="orderForm.get('email')!.invalid && orderForm.get('email')?.touched" class="invalid-feedback">
+                        Email chưa đúng định dạng
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="Phone" class="form-label">Số điện thoại</label>
-                    <input type="text" [(ngModel)]="orderData.phone_number" name="" id="phone" class="form-control">
+                    <input type="text" [(ngModel)]="orderData.phone_number" formControlName="phone_number" id="phone" class="form-control"
+                    [class.is-invalid]="orderForm.get('phone_number')!.invalid && orderForm.get('phone_number')?.touched"
+                    >
+                    <div *ngIf="orderForm.get('phone_number')!.invalid && orderForm.get('phone_number')?.touched" class="invalid-feedback">
+                        SDT là trường bắt buộc và tối thiểu 6 ký tự
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Địa chỉ</label>
-                    <input type="text" [(ngModel)]="orderData.address" name="" id="address" class="form-control">
+                    <input type="text" [(ngModel)]="orderData.address" formControlName="address" id="address" class="form-control"
+                    [class.is-invalid]="orderForm.get('address')!.invalid && orderForm.get('address')?.touched"
+                    >
+                    <div *ngIf="orderForm.get('address')!.invalid && orderForm.get('address')?.touched" class="invalid-feedback">
+                       Địa chỉ nhà là trường bắt buộc và tối thiểu 5 ký tự
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="note" class="form-label">Ghi chú</label>
@@ -79,9 +100,10 @@
                 </div>
             </div>
             <div class="text-start mt-3">
-                <button class="btn btn-gradient" type="button">Đặt hàng</button>
+                <button class="btn btn-gradient" (click)="placeOrder()" type="submit">Đặt hàng</button>
             </div>
         </div>
     </div>
+  </form>
 </div>
 <app-footer></app-footer>
