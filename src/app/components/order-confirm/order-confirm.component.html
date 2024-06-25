@@ -15,11 +15,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of cartItems">
+                <ng-container *ngFor="let item of cartItems">
+                <tr >
                     <td>
                         <div class="product-info">
-                            <img [src]="item.product.thumbnail"
-                                alt="" class="product-image">
+                            <img [src]="item.product.thumbnail" alt="" class="product-image">
                             <span class="product-name">{{ item.product.name }}</span>
                         </div>
                     </td>
@@ -27,24 +27,25 @@
                     <td>{{ item.product.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
                     <td>{{ item.product.price * item.quantity | currency:'VND': 'symbol' : '1.0-0' }}</td>
                 </tr>
+            </ng-container>
             </tbody>
         </table>
         <div class="row justify-content-center align-item-center">
-            <div class="form-group mb-3 mt-3 row justify-content-center align-item-center">
-                <div class="col-lg-6">
-                    <input type="text"
-                    class="form-control" [(ngModel)]="couponCode" name="" id="" aria-describedby="helpId" placeholder="">
+            <div class="input-group mb-3 mt-3 row justify-content-center align-item-center">
+                <div class="col-lg-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="couponCode" name="" id=""
+                        aria-describedby="helpId" placeholder="">
                 </div>
-                  <div class="input-group-append col-lg-6" style="margin-left: 10px;">
-                      <button class="btn btn-outline-secondary" type="button" (click)="applyCoupon()">Ap dung ma</button>
-                  </div>
-              </div>
-              <div>
+                <div class="input-group-append col-lg-6" >
+                    <button class="btn btn-outline-secondary" type="button" (click)="applyCoupon()">Ap dung ma</button>
+                </div>
+            </div>
+            <div>
                 <p class="mb-0">Tong tien: {{ totalAmount | currency:'VND': 'symbol' : '1.0-0' }}</p>
                 <div class="text-center mt-3">
-                    <button class="btn btn-gradient" type="button">Dat hang</button>
+                    <button class="btn btn-gradient" type="button">Thanh toán</button>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 
