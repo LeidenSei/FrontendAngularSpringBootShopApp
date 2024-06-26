@@ -35,7 +35,7 @@ export class OrderComponent implements OnInit  {
       fullname:['',Validators.required],
       email:['',Validators.email],
       phone_number:['',[Validators.required,Validators.minLength(6)]],
-      address:['',Validators.required,Validators.minLength(5)],
+      address:['',[Validators.required,Validators.minLength(5)]],
       note:[''],
       shipping_method:['express'],
       payment_method:['cod']
@@ -85,12 +85,14 @@ export class OrderComponent implements OnInit  {
   placeOrder(){
       this.orderData = {
         ...this.orderData,
-        ...this.orderForm.value
+        ...this.orderForm.value,
       }
       this.orderData.cart_items = this.cartItems.map(cartItem => ({
         product_id : cartItem.product.id,
         quantity : cartItem.quantity
       }));
+      this.orderData.total_money = this.totalAmount
+
       this.orderService.order(this.orderData).subscribe({
         next:(response) =>{
           console.log("dat hang thanh cong");

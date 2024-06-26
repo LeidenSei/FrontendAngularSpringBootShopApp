@@ -41,8 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   bootstrap: [
     // HomeComponent,
-    OrderComponent,
-    // OrderConfirmComponent,
+    // OrderComponent,
+    OrderConfirmComponent,
     // LoginComponent
     // RegisterComponent
     // DetailProductComponent
