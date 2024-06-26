@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/environment/environment';
 import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
@@ -15,13 +16,15 @@ export class DetailProductComponent {
   productId: number = 0;
   currentImageIndex: number = 0;
   quantity:number =1;
-
-  constructor(private productService: ProductService,private cartService:CartService) { }
+  idParam:any;
+  constructor(private productService: ProductService,private cartService:CartService, private router:Router,  private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const idParam = 9
-    if (idParam !== null) {
-      this.productId = +idParam;
+    this.route.paramMap.subscribe(params => {
+      this.idParam = Number(params.get('id'));
+    });
+    if (this.idParam !== null) {
+      this.productId = + this.idParam;
     }
     if (!isNaN(this.productId)) {
       this.productService.getDetailProduct(this.productId).subscribe({
@@ -85,6 +88,7 @@ export class DetailProductComponent {
   buyNow():void{
     if(this.product){
       this.cartService.addToCart(this.product.id,1)
+      this.router.navigate(['/orders'])
     }else{
       console.log("khong the them gio hang vi product null");
     }

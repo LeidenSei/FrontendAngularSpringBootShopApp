@@ -13,42 +13,46 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit  {
-  orderForm:FormGroup;
-  cartItems: { product:Product, quantity:number} [] =[];
-  totalAmount:number = 0;
-  couponCode:string = '';
-  orderData:OrderDto = {
-    user_id:3,
+  orderForm: FormGroup;
+  cartItems: { product: Product, quantity: number }[] = [];
+  totalAmount: number = 0;
+  couponCode: string = '';
+  orderData: OrderDto = {
+    user_id: 3,
     fullname: '',
-    email:'',
-    phone_number:'',
-    address:'',
-    note:'',
+    email: '',
+    phone_number: '',
+    address: '',
+    note: '',
     total_money: 0,
-    payment_method:'cod',
-    shipping_method:'express',
-    coupon_code:'',
-    cart_items:[]
-  }
-  constructor(private ProductService:ProductService,private CartService:CartService,private fb:FormBuilder,private orderService:OrderService){
-    this.orderForm = this.fb.group({
-      fullname:['',Validators.required],
-      email:['',Validators.email],
-      phone_number:['',[Validators.required,Validators.minLength(6)]],
-      address:['',[Validators.required,Validators.minLength(5)]],
-      note:[''],
-      shipping_method:['express'],
-      payment_method:['cod']
-    })
-  
+    payment_method: 'cod',
+    shipping_method: 'express',
+    coupon_code: '',
+    cart_items: []
   }
 
-  
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private fb: FormBuilder,
+    private orderService: OrderService
+  ) {
+    this.orderForm = this.fb.group({
+      fullname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone_number: ['', [Validators.required, Validators.minLength(6)]],
+      address: ['', [Validators.required, Validators.minLength(5)]],
+      note: [''],
+      shipping_method: ['express'],
+      payment_method: ['cod']
+    });
+  }
+
   ngOnInit(): void {
-    const cart = this.CartService.getCart();
+    const cart = this.cartService.getCart();
     const productIds = Array.from(cart.keys());
-    this.ProductService.getProductByIds(productIds).subscribe({
-      next:(products) => {
+    this.productService.getProductByIds(productIds).subscribe({
+      next: (products) => {
         this.cartItems = productIds.map((productId) => {
           const product = products.find((p) => p.id === productId);
           if (product) {
@@ -60,49 +64,47 @@ export class OrderComponent implements OnInit  {
           };
         });
       },
-      complete:() =>{
-        console.log("loio cai j");
-        this.calculateTotal()
+      complete: () => {
+        console.log("Product data loaded successfully.");
+        this.calculateTotal();
       },
-      error:(error :any) =>{
-        console.log(error);
-        
+      error: (error: any) => {
+        console.log("Error loading product data:", error);
       }
-    })
-    
+    });
   }
-  calculateTotal():void{
+
+  calculateTotal(): void {
     this.totalAmount = this.cartItems.reduce(
       (total, item) => total + item.product.price * item.quantity, 0
     );
-    
-    
-  };
-  applyCoupon():void{
-    
   }
 
-  placeOrder(){
-      this.orderData = {
-        ...this.orderData,
-        ...this.orderForm.value,
-      }
-      this.orderData.cart_items = this.cartItems.map(cartItem => ({
-        product_id : cartItem.product.id,
-        quantity : cartItem.quantity
-      }));
-      this.orderData.total_money = this.totalAmount
+  applyCoupon(): void {
+    // Apply coupon logic here
+  }
 
-      this.orderService.order(this.orderData).subscribe({
-        next:(response) =>{
-          console.log("dat hang thanh cong");
-        },
-        complete: () => {
-          this.calculateTotal()
-        },
-        error: (error:any) =>{
-          console.log("loi dat hang",error);        
-        }
-      })
-    }
+  placeOrder(): void {
+    this.orderData = {
+      ...this.orderData,
+      ...this.orderForm.value,
+    };
+    this.orderData.cart_items = this.cartItems.map(cartItem => ({
+      product_id: cartItem.product.id,
+      quantity: cartItem.quantity
+    }));
+    this.orderData.total_money = this.totalAmount;
+
+    this.orderService.order(this.orderData).subscribe({
+      next: (response) => {
+        console.log("Order placed successfully.");
+      },
+      complete: () => {
+        this.calculateTotal();
+      },
+      error: (error: any) => {
+        console.log("Error placing order:", error);
+      }
+    });
+  }
 }

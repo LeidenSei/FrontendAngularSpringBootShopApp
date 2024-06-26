@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { environment } from 'src/app/environment/environment';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   keyword: string = '';
   selectedCategoryId: number = 0;
 
-  constructor(private productService: ProductService,private categoryService:CategoryService) { }
+  constructor(private productService: ProductService,private categoryService:CategoryService, private router:Router) { }
 
   ngOnInit(): void {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
@@ -49,7 +50,6 @@ export class HomeComponent implements OnInit {
   getProducts(keyword: string, selectedCategoryId: number, page: number, limit: number) {
     this.productService.getProducts(keyword,selectedCategoryId,page, limit).subscribe({
       next: (response: any) => {
-        console.log("API Response:", response);
         if (response && response.products) {
           response.products.forEach((product: Product) => {
             product.url = product.thumbnail
@@ -63,11 +63,7 @@ export class HomeComponent implements OnInit {
 
           this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
 
-          console.log("Products loaded:", this.products);
-          console.log("Total pages:", this.totalPages);
-          console.log("Visible pages:", this.visiblePages);
         } else {
-          console.error("Products array is missing in the response", response);
           this.products = [];
           this.totalPages = 0;
           this.visiblePages = [];
@@ -84,7 +80,6 @@ export class HomeComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    console.log("Changing to page:", page);
     this.currentPage = page;
     this.getProducts(this.keyword, this.selectedCategoryId,this.currentPage, this.itemsPerPage);
   }
@@ -100,5 +95,10 @@ export class HomeComponent implements OnInit {
       startPage = Math.max(endPage - maxVisiblePages + 1, 1);
     }
     return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index);
+  }
+  onProductClick(id: number){
+    console.log(id);
+    
+    this.router.navigate(['/product', id])
   }
 }

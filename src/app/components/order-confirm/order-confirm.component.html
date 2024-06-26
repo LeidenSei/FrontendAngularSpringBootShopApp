@@ -39,19 +39,17 @@
                         <th scope="col">Tổng giá</th>
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <tr *ngFor="let detail of orderResponse.order_details">
-                        <td>
-                            <div class="product-info">
-                                <img [src]="detail.product.thumbnail" alt="" class="product-image">
-                                <span class="product-name">{{ detail.product.name }}</span>
-                            </div>
-                        </td>
-                        <td>{{ detail.number_of_products}}</td>
-                        <td>{{ detail.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
-                        <td>{{ detail.total_money | currency:'VND': 'symbol' : '1.0-0' }}</td>
-                    </tr>
-                </tbody> -->
+                <tr *ngFor="let detail of orderResponse.order_details">
+                    <td>
+                        <div class="product-info">
+                            <img [src]="detail.product.thumbnail" alt="" class="product-image">
+                            <span class="product-name">{{ detail.product.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ detail.numberOfProducts}}</td>
+                    <td>{{ detail.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
+                    <td>{{ detail.totalMoney | currency:'VND': 'symbol' : '1.0-0' }}</td>
+                </tr>
             </table>
             <div class="text-start mt-3">
                 <div>
