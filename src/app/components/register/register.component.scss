@@ -1,3 +1,4 @@
+@import '../../styles/shared-styles.scss';
 .container{
     color: white;
     height: 100vh;
@@ -63,10 +64,10 @@
     margin-top: 20px;
     width: 200px;
     color: white;
-    border: 1px solid rgb(225, 64, 180);
+    border: 1px solid $shopapp-tint-color;
 }
 .access-right:focus{
-    border: 1px solid rgb(225, 64, 180);
+    border: 1px solid $shopapp-tint-color;
 }
 .form-control::placeholder{
     color: rgba(243, 165, 42, 0.4) !important;
@@ -79,7 +80,7 @@
     color: rgba(243, 165, 42, 0.4) !important;
 }
 .login-button{
-    background: linear-gradient(to right, rgb(225, 64, 180), rgb(126,43,237));
+    background: linear-gradient(to right, $shopapp-tint-color, rgb(126,43,237));
     color: white;
     border-radius: 30px;
     width: 100%;
