@@ -9,7 +9,7 @@
                 <h2 class="product-header">Thông tin người nhận</h2>
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ và tên</label>
-                    <input type="text" formControlName="fullname" id="name" class="form-control" 
+                    <input type="text" formControlName="fullname" id="name" name="fullname" class="form-control" 
                            [class.is-invalid]="orderForm.get('fullname')!.invalid && orderForm.get('fullname')?.touched">
                     <div *ngIf="orderForm.get('fullname')!.invalid && orderForm.get('fullname')?.touched" class="invalid-feedback">
                         Họ và tên là trường bắt buộc
@@ -17,7 +17,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" formControlName="email" id="email" class="form-control" 
+                    <input type="text" formControlName="email" id="email" name="email" class="form-control" 
                            [class.is-invalid]="orderForm.get('email')!.invalid && orderForm.get('email')?.touched">
                     <div *ngIf="orderForm.get('email')!.invalid && orderForm.get('email')?.touched" class="invalid-feedback">
                         Email chưa đúng định dạng
@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Số điện thoại</label>
-                    <input type="text" formControlName="phone_number" id="phone" class="form-control" 
+                    <input type="text" formControlName="phone_number" id="phone" name="phone_number" class="form-control" 
                            [class.is-invalid]="orderForm.get('phone_number')!.invalid && orderForm.get('phone_number')?.touched">
                     <div *ngIf="orderForm.get('phone_number')!.invalid && orderForm.get('phone_number')?.touched" class="invalid-feedback">
                         SDT là trường bắt buộc và tối thiểu 6 ký tự
@@ -33,7 +33,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Địa chỉ</label>
-                    <input type="text" formControlName="address" id="address" class="form-control" 
+                    <input type="text" formControlName="address" id="address" name="address" class="form-control" 
                            [class.is-invalid]="orderForm.get('address')!.invalid && orderForm.get('address')?.touched">
                     <div *ngIf="orderForm.get('address')!.invalid && orderForm.get('address')?.touched" class="invalid-feedback">
                         Địa chỉ nhà là trường bắt buộc và tối thiểu 5 ký tự
@@ -45,14 +45,14 @@
                 </div>
                 <div class="mb-3 form-group">
                     <label for="shippingMethod" class="form-label">Phương thức vận chuyển</label>
-                    <select class="form-control" formControlName="shipping_method" id="shippingMethod">
+                    <select class="form-control" formControlName="shipping_method" name="shipping_method" id="shippingMethod">
                         <option value="express">Nhanh (express)</option>
                         <option value="normal">Thường (normal)</option>
                     </select>
                 </div>
                 <div class="mb-3 form-group">
                     <label for="paymentMethod" class="form-label">Phương thức Thanh Toán</label>
-                    <select class="form-control" formControlName="payment_method" id="paymentMethod">
+                    <select class="form-control" formControlName="payment_method" name="payment_method" id="paymentMethod">
                         <option value="cod">Thanh toán khi nhận hàng (COD)</option>
                         <option value="orther">Thanh toán khác</option>
                     </select>

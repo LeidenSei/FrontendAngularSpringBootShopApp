@@ -9,14 +9,23 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+            <a class="nav-link"
+             [ngClass]="{'active': activeNavItem === 0}"
+             (click)="setActiveNavItem(0)"
+              aria-current="page" [routerLink]="['/']"
               routerLinkActive="router-link-active">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Thông tin</a>
+            <a class="nav-link"
+            [ngClass]="{'active': activeNavItem === 1}"
+            (click)="setActiveNavItem(1)"
+            href="#">Thông báo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/orders']" routerLinkActive="router-link-active"><i
+            <a class="nav-link"
+            [ngClass]="{'active': activeNavItem === 2}"
+            (click)="setActiveNavItem(2)"
+            [routerLink]="['/orders']" routerLinkActive="router-link-active"><i
                 class="fa-solid fa-cart-shopping">Giỏ hàng</i></a>
           </li>
           <li class="nav-item">
@@ -34,7 +43,11 @@
               </ng-container>
             </ng-container>
             <ng-container *ngIf="!userResponse">
-              <a class="nav-link" routerLinkActive="router-link-active" [routerLink]="['/login']"
+              <a class="nav-link" 
+              routerLinkActive="router-link-active"
+              [ngClass]="{'active': activeNavItem === 4}"
+              (click)="setActiveNavItem(4)"
+               [routerLink]="['/login']"
                 routerLinkActive="router-link-active" tabindex="-1" aria-disabled="true">Đăng nhập</a>
             </ng-container>
           </li>
