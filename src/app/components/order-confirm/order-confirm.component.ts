@@ -37,7 +37,7 @@ export class OrderConfirmComponent implements OnInit {
   }
 
 getOrderDetails(): void {
-  const orderId = 2;
+  const orderId = 9;
   this.orderService.getOrderById(orderId).subscribe({
     next: (response: any) => {
 

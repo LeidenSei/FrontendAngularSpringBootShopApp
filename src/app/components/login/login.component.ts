@@ -7,6 +7,7 @@ import { LoginResponse } from '../../responses/user/login.response';
 import { TokenService } from '../../services/token.service';
 import { RoleService } from 'src/app/services/role.service';
 import { Role } from 'src/app/models/role';
+import { UserResponse } from 'src/app/responses/user/user.response';
 
 
 @Component({
@@ -19,25 +20,19 @@ export class LoginComponent {
   phoneNumber: string = '';
   password: string = '';
   roles: Role[] = [];
-  selectedRole : Role | undefined; 
-
+  selectedRole: Role | undefined;
+  userResponse?: UserResponse;
   constructor(private router: Router
-    , private userService: UserService,private tokenService: TokenService
-    ,private roleService:RoleService) {
+    , private userService: UserService, private tokenService: TokenService
+    , private roleService: RoleService) {
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.roleService.getRoles().subscribe({
       next: (response: Role[]) => {
-
-       this.roles=response;
-       console.log(this.roles);
-       
-       console.log(this.roles);
-       
-       this.selectedRole = this.roles.length > 0 ? this.roles[0] : undefined;
-        
+        this.roles = response;
+        this.selectedRole = this.roles.length > 0 ? this.roles[0] : undefined;
       },
       complete() {
 
@@ -54,7 +49,7 @@ export class LoginComponent {
     const loginDTO: LoginDto = {
       phone_number: this.phoneNumber,
       password: this.password,
-      role_id: this.selectedRole?.id ??1
+      role_id: this.selectedRole?.id ?? 1
     };
 
     // console.log(loginDTO);
@@ -64,8 +59,24 @@ export class LoginComponent {
       .subscribe({
         next: (response: LoginResponse) => {
           const { token } = response
-          console.log(response);
           this.tokenService.setToken(token);
+          this.userService.getUserDetail(token).subscribe({
+            next: (res: any) => {
+              this.userResponse = {
+                ...res,
+                date_of_birth: new Date(res.date_of_birth)
+              }
+              this.userService.saveUserResponseToLocalStorage(this.userResponse);
+              // this.router.navigate(['/'])
+            },
+            complete() {
+                console.log("ok");
+            },
+            error(err) {
+                console.log(err);
+            },
+          })
+
           
         },
         complete() {
