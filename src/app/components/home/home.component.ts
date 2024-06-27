@@ -3,6 +3,7 @@ import { Route, Router } from '@angular/router';
 import { environment } from 'src/app/environment/environment';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -20,8 +21,9 @@ export class HomeComponent implements OnInit {
   visiblePages: number[] = [];
   keyword: string = '';
   selectedCategoryId: number = 0;
+  product?: Product;
 
-  constructor(private productService: ProductService,private categoryService:CategoryService, private router:Router) { }
+  constructor(private productService: ProductService,private categoryService:CategoryService, private router:Router,private cartService:CartService) { }
 
   ngOnInit(): void {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
@@ -100,5 +102,9 @@ export class HomeComponent implements OnInit {
     console.log(id);
     
     this.router.navigate(['/product', id])
+  }
+  buyNow(proId:number):void{
+      this.cartService.addToCart(proId,1)
+      this.router.navigate(['/orders'])
   }
 }

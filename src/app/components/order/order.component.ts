@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { OrderDto } from 'src/app/dtos/user/order.dto';
 import { environment } from 'src/app/environment/environment';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-order',
@@ -18,7 +20,7 @@ export class OrderComponent implements OnInit  {
   totalAmount: number = 0;
   couponCode: string = '';
   orderData: OrderDto = {
-    user_id: 3,
+    user_id: 0,
     fullname: '',
     email: '',
     phone_number: '',
@@ -35,7 +37,9 @@ export class OrderComponent implements OnInit  {
     private productService: ProductService,
     private cartService: CartService,
     private fb: FormBuilder,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private tokenService:TokenService,
+    private router:Router
   ) {
     this.orderForm = this.fb.group({
       fullname: ['', Validators.required],
@@ -49,6 +53,12 @@ export class OrderComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    
+    this.orderData.user_id=this.tokenService.getUserId();
+    this.getProductCart();
+  }
+
+  getProductCart(){
     const cart = this.cartService.getCart();
     const productIds = Array.from(cart.keys());
     this.productService.getProductByIds(productIds).subscribe({
@@ -74,6 +84,16 @@ export class OrderComponent implements OnInit  {
     });
   }
 
+  loadCart() {
+    const cart = this.cartService.getCart();
+    const productIds = Array.from(cart.keys());
+    if (productIds.length === 0) {
+      this.cartItems = [];
+      return;
+    }
+    this.getProductCart();
+  }
+
   calculateTotal(): void {
     this.totalAmount = this.cartItems.reduce(
       (total, item) => total + item.product.price * item.quantity, 0
@@ -97,7 +117,9 @@ export class OrderComponent implements OnInit  {
 
     this.orderService.order(this.orderData).subscribe({
       next: (response) => {
-        console.log("Order placed successfully.");
+        alert("Order placed successfully.");
+        this.cartService.clearCart();
+        this.router.navigate(['/order-detail',response.id])
       },
       complete: () => {
         this.calculateTotal();
@@ -106,5 +128,18 @@ export class OrderComponent implements OnInit  {
         console.log("Error placing order:", error);
       }
     });
+  }
+  removeOneOrder(id:number){
+    this.cartService.removeFromCart(id);
+   
+    if(this.cartService.getCart().size === 0){
+      this.loadCart();
+    } else{
+      this.getProductCart();
+    }
+  }
+  clearOrder(){
+    this.cartService.clearCart();
+    this.loadCart();
   }
 }

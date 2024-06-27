@@ -3,6 +3,7 @@ import { environment } from 'src/app/environment/environment';
 import { OrderResponse } from 'src/app/responses/user/order.response';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderDetail } from 'src/app/models/orderdetail';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-confirm',
@@ -28,16 +29,21 @@ export class OrderConfirmComponent implements OnInit {
     order_details: []
   }
   
+  
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
+    
     this.getOrderDetails();
   }
 
 getOrderDetails(): void {
-  const orderId = 9;
+  let orderId = 0;
+  this.route.paramMap.subscribe(params => {
+    orderId = Number(params.get('id'));
+  });
   this.orderService.getOrderById(orderId).subscribe({
     next: (response: any) => {
 

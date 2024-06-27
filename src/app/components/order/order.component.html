@@ -5,7 +5,7 @@
     </div>
     <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h2 class="product-header">Thông tin người nhận</h2>
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ và tên</label>
@@ -58,7 +58,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <h2 class="product-order">Sản phẩm đã đặt hàng</h2>
                 <table>
                     <thead>
@@ -67,6 +67,7 @@
                             <th scope="col">Số lượng</th>
                             <th scope="col">Đơn giá</th>
                             <th scope="col">Tổng giá</th>
+                            <th scope="col"><button class="btn btn-danger" (click)="clearOrder()">Xóa tất cả</button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,6 +81,7 @@
                             <td>{{ item.quantity }}</td>
                             <td>{{ item.product.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
                             <td>{{ item.product.price * item.quantity | currency:'VND': 'symbol' : '1.0-0' }}</td>
+                            <td><button class="btn btn-danger" (click)="removeOneOrder(item.product.id)">Xóa </button></td>
                         </tr>
                     </tbody>
                 </table>

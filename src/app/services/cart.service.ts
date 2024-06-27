@@ -23,7 +23,7 @@ export class CartService {
     }
     this.saveCartToLocalStorage();
   }
-
+  
   getCart(): Map<number, number> {
     return this.cart;
   }
@@ -33,7 +33,7 @@ export class CartService {
   }
 
   clearCart(): void{
-    this.cart.clear;
+    this.cart.clear();
     this.saveCartToLocalStorage();
   }
 

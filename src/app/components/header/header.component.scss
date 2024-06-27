@@ -18,3 +18,17 @@
     background-color: rgb(127, 68, 255) !important;
     color: white !important;
 }
+
+.popover-list{
+    padding: 5px;
+}
+.popover-item{
+    display: block;
+    margin: 5px;
+    text-decoration: none;
+    color: #333;
+}
+.popover-item:hover{
+    background-color: #f3f3f3;
+    color: red;
+}
