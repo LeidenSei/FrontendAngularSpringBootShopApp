@@ -7,12 +7,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { DetailProductComponent } from './components/detail-product/detail-product.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes:Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component:LoginComponent},
   {path: 'register', component:RegisterComponent},
   {path: 'product/:id', component:DetailProductComponent},
+  {path: 'admin', component:AdminComponent},
   {path: 'orders', component: OrderComponent},
   {path: 'order-detail/:id', component:OrderConfirmComponent}
 ]

@@ -17,11 +17,13 @@ import { UserResponse } from 'src/app/responses/user/user.response';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
-  phoneNumber: string = '';
-  password: string = '';
+  // phoneNumber: string = '';
+  // password: string = '';
   roles: Role[] = [];
   selectedRole: Role | undefined;
   userResponse?: UserResponse;
+  phoneNumber: string = '0123452534';
+  password: string = '1234';
   constructor(private router: Router
     , private userService: UserService, private tokenService: TokenService
     , private roleService: RoleService) {
@@ -67,7 +69,12 @@ export class LoginComponent implements OnInit {
                 date_of_birth: new Date(res.date_of_birth)
               }
               this.userService.saveUserResponseToLocalStorage(this.userResponse);
-              this.router.navigate(['/'])
+              if (this.userResponse?.role.name == "admin") {
+                this.router.navigate(['/admin'])
+              }else  if (this.userResponse?.role.name == "user") {
+                this.router.navigate(['/'])
+              }
+              
             },
             complete() {
                 console.log("ok");
