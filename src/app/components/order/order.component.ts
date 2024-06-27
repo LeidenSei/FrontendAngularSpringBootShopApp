@@ -142,4 +142,12 @@ export class OrderComponent implements OnInit  {
     this.cartService.clearCart();
     this.loadCart();
   }
+  updateOrder(productId: number, quantity: any|null){
+    
+    quantity = parseInt(quantity.value);
+    
+    this.cartService.updateCart(productId,quantity);
+    
+    this.getProductCart();
+  }
 }

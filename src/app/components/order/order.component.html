@@ -78,7 +78,8 @@
                                     <span class="product-name">{{ item.product.name }}</span>
                                 </div>
                             </td>
-                            <td>{{ item.quantity }}</td>
+                            <td ><input type="number"  [value]="item.quantity" 
+                                (change)="updateOrder(item.product.id, $event.target)" style="width: 35px !important;"></td>
                             <td>{{ item.product.price | currency:'VND': 'symbol' : '1.0-0' }}</td>
                             <td>{{ item.product.price * item.quantity | currency:'VND': 'symbol' : '1.0-0' }}</td>
                             <td><button class="btn btn-danger" (click)="removeOneOrder(item.product.id)">Xóa </button></td>
