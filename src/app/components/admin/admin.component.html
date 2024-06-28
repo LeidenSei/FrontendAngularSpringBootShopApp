@@ -8,22 +8,30 @@
       <div class="position-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a href="" class="nav-link" [routerLink]="['/admin/orders']">
+            <a  class="nav-link" (click)="showAdminComponent('orders')">
               <i class="fab fa-first-order icon"></i> Orders
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link"> 
+            <a  class="nav-link" (click)="showAdminComponent('category')"> 
               <i class="fab fa-canadian-maple-leaf icon"></i>Categories
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a  class="nav-link" (click)="showAdminComponent('product')">
               <i class="fab fa-codepen icon"></i>Products
             </a>
           </li>
         </ul>
       </div>
     </nav>
+    <div class="col-md-10 col-lg-10 overflow-auto">
+      <ng-container  [ngSwitch]="adminComponent">
+        <!-- <app-orders-admin *ngSwitchCase="'orders'"></app-orders-admin>
+        <app-category-admin *ngSwitchCase="'category'"></app-category-admin>
+        <app-product-admin *ngSwitchCase="'product'"></app-product-admin> -->
+        <router-outlet></router-outlet>
+      </ng-container>
+    </div>
   </div>
 </div>

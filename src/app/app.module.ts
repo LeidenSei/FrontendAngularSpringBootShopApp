@@ -15,9 +15,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdminComponent } from './components/admin/admin.component';
+import { AdminModule } from './components/admin/admin.module';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
-import { OrdersAdminComponent } from './components/admin/orders/orders.admin.component';
+// import { AdminComponent } from './components/admin/admin.component';
+
+// import { OrdersAdminComponent } from './components/admin/orders/orders.admin.component';
+// import { ProductAdminComponent } from './components/admin/product-admin/product-admin.component';
+// import { CategoryAdminComponent } from './components/admin/category-admin/category-admin.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -29,10 +33,12 @@ import { OrdersAdminComponent } from './components/admin/orders/orders.admin.com
     RegisterComponent,
     DetailProductComponent,
     AppComponent,
-    AdminComponent,
     UserProfileComponent,
-    OrdersAdminComponent
-
+    //admin
+    // AdminComponent,
+    // OrdersAdminComponent,
+    // ProductAdminComponent,
+    // CategoryAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,8 @@ import { OrdersAdminComponent } from './components/admin/orders/orders.admin.com
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    AdminModule
   ],
   providers: [
     {

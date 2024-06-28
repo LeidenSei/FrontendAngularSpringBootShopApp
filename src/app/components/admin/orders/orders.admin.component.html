@@ -1,4 +1,47 @@
 <div class="container-fluid">
   <h1>Orders Admin Page</h1>
+  <table  class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">FullName</th>
+        <th scope="col">Phone number</th>
+        <th scope="col">Address</th>
+        <th scope="col">Note</th>
+        <th scope="col">OrderDate</th>
+        <th scope="col">TotalMoney</th>
+        <th scope="col">Shipping Method</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of orders">
+        <th scope="row">{{o.id}}</th>
+        <td>{{o.fullname}}</td>
+        <td>{{o.phone_number}}</td>
+        <td>{{o.address}}</td>
+        <td>{{o.note}}</td>
+        <td>{{o.order_date}}</td>
+        <td>{{o.total_money}}</td>
+        <td>{{o.shipping_method}}</td>
+        <td>{{o.payment_method}}</td>
+        <td>{{o.status}}</td>
+        <td><button class="btn btn-info" (click)="viewDetail(o)">Detail</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" >
+          <ul class="pagination">
+            <li class="page-item" *ngIf="currentPage > 1"><a class="page-link" (click)="onPageChange(1)">First</a></li>
+            <li class="page-item" *ngIf="currentPage > 1"><a class="page-link" (click)="onPageChange(currentPage - 1)">&lt;</a></li>
+            <ng-container *ngFor="let page of visiblePages">
+              <li class="page-item" [ngClass]="{'active': page === currentPage}"><a class="page-link" (click)="onPageChange(page)">{{ page }}</a></li>
+            </ng-container>
+            <li class="page-item" *ngIf="currentPage < totalPages"><a class="page-link" (click)="onPageChange(currentPage + 1)">&gt;</a></li>
+            <li class="page-item" *ngIf="currentPage < totalPages"><a class="page-link" (click)="onPageChange(totalPages)">Last</a></li>
+          </ul>
+        </nav>
 </div>
 

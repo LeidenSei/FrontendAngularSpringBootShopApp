@@ -23,7 +23,6 @@ const routes:Routes = [
   {path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuard]},
   {path: 'order-detail/:id', component:OrderConfirmComponent},
   {path: 'admin', component:AdminComponent, canActivate:[AdminGuardFn]},
-  {path:'admin/orders',component:OrdersAdminComponent,canActivate:[AdminGuardFn]}
 ]
 
 @NgModule({

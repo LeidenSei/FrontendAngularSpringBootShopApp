@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/app/environment/environment';
 import { OrderResponse } from 'src/app/responses/user/order.response';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-orders-admin',
   templateUrl: './orders.admin.component.html',
   styleUrls: ['./orders.admin.component.scss']
 })
@@ -16,7 +17,7 @@ export class OrdersAdminComponent implements OnInit {
   keyword:string = "";
   visiblePages: number[] = [];
 
-  constructor(private orderService:OrderService){}
+  constructor(private orderService:OrderService,private router:Router){}
 
   ngOnInit(): void {
    this.getAllOrders(this.keyword,this.currentPage,this.itemsPerPage)
@@ -24,7 +25,7 @@ export class OrdersAdminComponent implements OnInit {
   getAllOrders(keyword: string, page: number, limit: number) {
     this.orderService.getAllOrders(keyword,page, limit).subscribe({
       next: (response: any) => {
-       this.orders = response.products;
+       this.orders = response.orders;
        this.totalPages= response.totalPages;
        this.visiblePages= this.generateVisiblePageArray(this.currentPage,this.totalPages)
       },
@@ -54,5 +55,8 @@ export class OrdersAdminComponent implements OnInit {
   onPageChange(page: number) {
     this.currentPage = page;
     this.getAllOrders(this.keyword, this.currentPage, this.itemsPerPage);
+  }
+  viewDetail(order:OrderResponse){
+    this.router.navigate(['/admin/orders',order.id])
   }
 }
