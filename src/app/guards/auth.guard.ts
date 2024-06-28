@@ -16,9 +16,8 @@ export class AuthGuard implements CanActivate {
     console.log(this.tokenService.isTokenExpired(), this.tokenService.getUserId());
     
     if (!this.tokenService.isTokenExpired() && this.tokenService.getUserId() > 0) {
-      return true; // Allow access if token is valid and user ID is greater than 0
+      return true; 
     } else {
-      // Redirect to login if token is expired or user ID is not valid
       console.log('Redirecting to login...');
       this.router.navigate(['login']);
       return false;
