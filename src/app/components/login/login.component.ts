@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
                 ...res,
                 date_of_birth: new Date(res.date_of_birth)
               }
+              this.userService.saveUserResponseToLocalStorage(this.userResponse);
               if (this.rememberMe) {
                 this.userService.saveUserResponseToLocalStorage(this.userResponse);
               }
