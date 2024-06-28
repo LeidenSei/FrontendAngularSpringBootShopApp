@@ -29,16 +29,17 @@
                     <div class="form-group">
                         <div class="form-check checkbox-text">
                             <span style="display: flex;">
-                                <input type="checkbox" class="form-check-input" name="remember" id="remember">
-                                <label class="form-check-label text-start">
+                                <input type="checkbox" class="form-check-input" name="remember" id="remember" [(ngModel)]="rememberMe">
+                                <label class="form-check-label text-start" for="remember">
                                     Ghi nhớ đăng nhập
                                 </label>
                             </span>
+                            
                             <a href="#" class="register-link">Quên mật khẩu</a>
                         </div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control access-right" name="selectedRole" [(ngModel)]="selectedRole">
+                        <select class="form-control access-right" name="selectedRole" (click)="clickRememberMe()" [(ngModel)]="selectedRole">
                             <option selected disabled>Quyền đăng nhập</option>
                             <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
                         </select>

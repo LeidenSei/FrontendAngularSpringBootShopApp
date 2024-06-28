@@ -1,3 +1,4 @@
+import { TokenService } from 'src/app/services/token.service';
 import { HttpUtilService } from './http.ulti.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,6 +7,7 @@ import { RegisterDTO } from '../dtos/user/register.dto';
 import { LoginDto } from '../dtos/user/login.dto';
 import { environment } from '../environment/environment';
 import { UserResponse } from '../responses/user/user.response';
+import { UpdateUserDTO } from '../dtos/user/update.user.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,10 @@ import { UserResponse } from '../responses/user/user.response';
 export class UserService {
   private apiUrl = `${environment.apiBaseUrl}/users`;
 
-  constructor(private http: HttpClient, private httpUtilService: HttpUtilService) { }
+  constructor(private http: HttpClient, 
+    private httpUtilService: HttpUtilService,
+    private tokenService: TokenService
+  ) { }
 
   register(registerDTO: RegisterDTO): Observable<any> {
     return this.http.post(this.apiUrl + '/register', registerDTO, {
@@ -38,7 +43,21 @@ export class UserService {
       })
     });
   }
+  updateUserDetail(token: string, data: UpdateUserDTO): Observable<any> {
+    const userResponse = this.getUserResponseFromLocalStorage();
 
+    if (!userResponse) {
+      throw new Error('User response not found in local storage');
+    }
+    console.log(userResponse.id);
+    
+    return this.http.put(`${this.apiUrl}/details/${userResponse.id}`, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      })
+    });
+  }
   saveUserResponseToLocalStorage(userResponse?: UserResponse) {
     try {
       if(userResponse == null || !userResponse){
