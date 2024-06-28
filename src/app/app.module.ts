@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { OrdersAdminComponent } from './components/admin/orders/orders.admin.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -30,6 +31,7 @@ import { UserProfileComponent } from './components/user-profile/user.profile.com
     AppComponent,
     AdminComponent,
     UserProfileComponent,
+    OrdersAdminComponent
 
   ],
   imports: [
