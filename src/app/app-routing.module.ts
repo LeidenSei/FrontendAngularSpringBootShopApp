@@ -10,6 +10,7 @@ import { OrderConfirmComponent } from './components/order-confirm/order-confirm.
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { AdminGuardFn } from './guards/admin.guard';
 
 
 const routes:Routes = [
@@ -17,7 +18,11 @@ const routes:Routes = [
   {path: 'login', component:LoginComponent},
   {path: 'register', component:RegisterComponent},
   {path: 'product/:id', component:DetailProductComponent},
+<<<<<<< HEAD
   {path: 'admin', component:AdminComponent,canActivate:[AuthGuard]},
+=======
+  {path: 'admin', component:AdminComponent, canActivate:[AdminGuardFn]},
+>>>>>>> 40de18638b072f544bff8cc1818e8792e29c5156
   {path: 'orders', component: OrderComponent, canActivate:[AuthGuard]},
   {path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuard]},
   {path: 'order-detail/:id', component:OrderConfirmComponent}

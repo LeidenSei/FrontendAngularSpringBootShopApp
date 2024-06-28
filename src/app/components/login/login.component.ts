@@ -18,20 +18,23 @@ import { NgIf } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
-  phoneNumber: string = '';
-  password: string = '';
+  // phoneNumber: string = '';
+  // password: string = '';
   roles: Role[] = [];
   selectedRole: Role | undefined;
   userResponse?: UserResponse;
   rememberMe: boolean = false;
-  // phoneNumber: string = '0123452534';
-  // password: string = '1234';
+  phoneNumber: string = '0123452534';
+  password: string = '1234';
   constructor(private router: Router
     , private userService: UserService, private tokenService: TokenService
     , private roleService: RoleService) {
 
   }
-
+  onPhoneNumberChange(){
+    console.log(`Phone typed: ${this.phoneNumber}`);
+    
+  }
   ngOnInit() {
     this.roleService.getRoles().subscribe({
       next: (response: Role[]) => {
