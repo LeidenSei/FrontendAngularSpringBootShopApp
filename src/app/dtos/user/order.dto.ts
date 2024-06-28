@@ -41,4 +41,4 @@ export class OrderDto {
     this.coupon_code = data.coupon_code;
     this.cart_items = data.cart_items;
   }
-}
+};

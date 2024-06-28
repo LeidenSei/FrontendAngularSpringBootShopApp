@@ -7,6 +7,7 @@ import { AdminComponent } from './admin.component';
 import { OrdersAdminComponent } from './orders/orders.admin.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
 import { CategoryAdminComponent } from './category-admin/category-admin.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CategoryAdminComponent } from './category-admin/category-admin.componen
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminRoutingModule,
   ]
 })

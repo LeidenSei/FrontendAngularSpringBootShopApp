@@ -29,4 +29,10 @@ export class OrderService {
       .set('limit', limit)
     return this.http.get<any>(this.apiUrl + "/get-orders-by-keyword", { params })
   }
+  updateOrder(orderId:number,orderData:any):Observable<any>{
+    return this.http.put(this.apiUrl+"/"+orderId,orderData);
+  }
+  deleteOrder(orderId:number):Observable<any>{
+    return this.http.delete(this.apiUrl+"/"+orderId);
+  }
 }
