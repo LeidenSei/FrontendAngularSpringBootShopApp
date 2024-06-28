@@ -8,6 +8,7 @@ import { DetailProductComponent } from './components/detail-product/detail-produ
 import { OrderComponent } from './components/order/order.component';
 import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { UserProfileComponent } from './components/user-profile/user.profile.component';
 
 const routes:Routes = [
   {path: '', component: HomeComponent},
@@ -16,7 +17,8 @@ const routes:Routes = [
   {path: 'product/:id', component:DetailProductComponent},
   {path: 'admin', component:AdminComponent},
   {path: 'orders', component: OrderComponent},
-  {path: 'order-detail/:id', component:OrderConfirmComponent}
+  {path: 'order-detail/:id', component:OrderConfirmComponent},
+  {path: 'user-profile',component:UserProfileComponent}
 ]
 
 @NgModule({

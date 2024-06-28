@@ -45,9 +45,7 @@ export class CartService {
   }
 
   updateCart(productId: number, quantity: number): void {
-    console.log(`Updating cart for product ID ${productId} with quantity ${quantity}`);
-    console.log('Cart before update:', Array.from(this.cart.entries()));
-  
+
     if (this.cart.has(productId)) {
       if (quantity > 0) {
         this.cart.set(productId, quantity);
@@ -57,8 +55,7 @@ export class CartService {
     } else {
       console.warn(`Product with ID ${productId} not found in the cart.`);
     }
-  
-    console.log('Cart after update:', Array.from(this.cart.entries()));
+
     this.saveCartToLocalStorage();
   }
 }

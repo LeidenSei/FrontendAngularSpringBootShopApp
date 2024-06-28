@@ -148,6 +148,10 @@ export class OrderComponent implements OnInit  {
     
     this.cartService.updateCart(productId,quantity);
     
-    this.getProductCart();
+    if(this.cartService.getCart().size === 0){
+      this.loadCart();
+    } else{
+      this.getProductCart();
+    }
   }
 }

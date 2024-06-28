@@ -1,0 +1,66 @@
+<app-header></app-header>
+<form [formGroup]="userProfileForm">
+  <div class="row">
+    <div class="col-md-3 mx-auto ">
+      <h2 class="product-header">Thông tin người dùng</h2>
+      <div class="mb-3">
+        <label for="name" class="form-label title-cus">Họ và tên</label>
+        <input type="text" formControlName="fullname" id="name" name="fullname" class="form-control"
+          [class.is-invalid]="userProfileForm.get('fullname')!.invalid && userProfileForm.get('fullname')?.touched">
+        <div *ngIf="userProfileForm.get('fullname')!.invalid && userProfileForm.get('fullname')?.touched"
+          class="invalid-feedback">
+          Họ và tên là trường bắt buộc
+        </div>
+      </div>
+      <!-- <div class="mb-3">
+        <label for="phone" class="form-label title-cus">Số điện thoại</label>
+        <input type="text" formControlName="phone_number" id="phone" name="phone_number" class="form-control"
+          [class.is-invalid]="userProfileForm.get('phone_number')!.invalid && userProfileForm.get('phone_number')?.touched">
+        <div *ngIf="userProfileForm.get('phone_number')!.invalid && userProfileForm.get('phone_number')?.touched"
+          class="invalid-feedback">
+          SDT là trường bắt buộc và tối thiểu 6 ký tự
+        </div>
+      </div> -->
+      <div class="mb-3">
+        <label for="address" class="form-label title-cus">Địa chỉ</label>
+        <input type="text" formControlName="address" id="address" name="address" class="form-control"
+          [class.is-invalid]="userProfileForm.get('address')!.invalid && userProfileForm.get('address')?.touched">
+        <div *ngIf="userProfileForm.get('address')!.invalid && userProfileForm.get('address')?.touched"
+          class="invalid-feedback">
+          Địa chỉ nhà là trường bắt buộc và tối thiểu 5 ký tự
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="date_of_birth" class="form-label title-cus">Date of birth</label>
+        <input type="date" formControlName="date_of_birth" id="date_of_birth" name="date_of_birth" class="form-control"
+          [class.is-invalid]="userProfileForm.get('date_of_birth')!.invalid && userProfileForm.get('date_of_birth')?.touched">
+        <div *ngIf="userProfileForm.get('date_of_birth')!.invalid && userProfileForm.get('date_of_birth')?.touched"
+          class="invalid-feedback">
+          Địa chỉ nhà là trường bắt buộc và tối thiểu 5 ký tự
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label title-cus">Mật khẩu mới</label>
+        <input type="text" formControlName="pasword" id="pasword" name="pasword" class="form-control"
+          [class.is-invalid]="userProfileForm.get('pasword')!.invalid && userProfileForm.get('pasword')?.touched">
+        <div *ngIf="userProfileForm.get('pasword')!.invalid && userProfileForm.get('pasword')?.touched"
+          class="invalid-feedback">
+          Địa chỉ nhà là trường bắt buộc và tối thiểu 3 ký tự
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="retype_password" class="form-label title-cus">Nhập lại mật khẩu mới</label>
+        <input type="text" formControlName="retype_password" id="retype_password" name="retype_password" class="form-control"
+          [class.is-invalid]="userProfileForm.get('retype_password')!.invalid && userProfileForm.get('retype_password')?.touched">
+        <div *ngIf="userProfileForm.get('retype_password')!.invalid && userProfileForm.get('retype_password')?.touched"
+          class="invalid-feedback">
+          Địa chỉ nhà là trường bắt buộc và tối thiểu 3 ký tự
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <button class="btn btn-gradient" type="submit">Đặt hàng</button>
+    </div>
+    </div>
+  </div>
+</form>
+<app-footer></app-footer>
