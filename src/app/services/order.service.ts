@@ -17,7 +17,6 @@ export class OrderService {
   order(orderDTO: OrderDto): Observable<any> {
     return this.http.post(this.apiUrl, orderDTO);
   }
-
   getOrderById(orderId: number): Observable<any> {
     return this.http.get(this.apiUrl + "/" + orderId)
   }

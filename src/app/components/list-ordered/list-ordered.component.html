@@ -1,0 +1,48 @@
+
+<h1 class="text-white">Danh sách đơn hàng</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id order</th>
+        <th scope="col">Order date</th>
+        <th scope="col">Shipping date</th>
+        <th scope="col">Total money</th>
+        <th scope="col">Payment method</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orders">
+        <th scope="row">1</th>
+        <td>{{item.id}}</td>
+        <td>{{item.order_date}}</td>
+        <td>{{item.shipping_date}}</td>
+        <td>{{ item?.total_money | number:'1.0-0' }} VND</td>
+        <td>{{item.payment_method}}</td>
+        <td>
+          {{item.status}}
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-info me-2" [routerLink]="['/user-profile/ordered-detail', item.id]" routerLinkActive="router-link-active">Detail</button>
+            <!-- <div>
+              <button class="btn btn-danger me-2" (click)="setStatusCancelled(item.id)">Delete</button>
+            </div> -->
+          </div>          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" >
+    <ul class="pagination">
+      <li class="page-item" *ngIf="currentPage > 1"><a class="page-link" (click)="onPageChange(1)">First</a></li>
+      <li class="page-item" *ngIf="currentPage > 1"><a class="page-link" (click)="onPageChange(currentPage - 1)">&lt;</a></li>
+      <ng-container *ngFor="let page of visiblePages">
+        <li class="page-item" [ngClass]="{'active': page === currentPage}"><a class="page-link" (click)="onPageChange(page)">{{ page }}</a></li>
+      </ng-container>
+      <li class="page-item" *ngIf="currentPage < totalPages"><a class="page-link" (click)="onPageChange(currentPage + 1)">&gt;</a></li>
+      <li class="page-item" *ngIf="currentPage < totalPages"><a class="page-link" (click)="onPageChange(totalPages)">Last</a></li>
+    </ul>
+  </nav>

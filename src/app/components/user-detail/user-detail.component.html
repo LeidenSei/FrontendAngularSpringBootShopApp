@@ -1,0 +1,158 @@
+<app-header />
+<section style="background-color: rgb(19, 23, 42);">
+  <div class="container py-5">
+    
+    <div class="row justify-content-between">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="" class="a-edit">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- <div class="col-lg-6">
+        <button class="btn btn-danger" (click)="logOut()">Log out</button>
+      </div> -->
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <ng-container *ngIf="userProfile.avatar!=null; else elseTemplate">
+              <img [src]="imageUrl"  alt="avatar" class=" img-fluid" style="width: 150px;">
+            </ng-container>
+            <ng-template #elseTemplate>
+              <img [src]="imageUrl" alt="avatar"
+                class=" img-fluid" style="width: 150px;">
+            </ng-template>
+            <h5 class="my-3">{{userProfile.fullname}}</h5>
+            <p class="text-muted mb-1">{{userProfile.phone_number}}</p>
+            <p class="text-muted mb-4">{{userProfile.address}}</p>
+            <div class="d-flex justify-content-center mb-2">
+              <!-- <div class="file-input">
+                <input type="file" id="file" (change)="handleFileInput($event)" class="file">
+                <label for="file">Select file</label>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <form [formGroup]="userProfileForm" (ngSubmit)="save()">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Họ tên</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="fullname" />
+                  <div *ngIf="userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('fullname')?.errors?.['required']">
+                      Họ và tên là trường bắt buộc
+                    </small>
+                    <small class="text-danger" *ngIf="userProfileForm.get('fullname')?.errors?.['minlength']">
+                      Họ và phải hơn 5 ki tự
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Ngày sinh</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" formControlName="date_of_birth" />
+                  <div *ngIf="userProfileForm.get('date_of_birth')?.invalid && userProfileForm.get('date_of_birth')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('date_of_birth')?.errors?.['required']">
+                      Ngày sinh phải có
+                    </small>
+                    <small class="text-danger" *ngIf="userProfileForm.get('date_of_birth')?.errors?.['invalidAge']">
+                      Ngày sinh phải lớn hơn 14 tuổi.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <!-- <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Số điện thoại</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="phone_number" />
+                  <div *ngIf="userProfileForm.get('phone_number')?.invalid && userProfileForm.get('phone_number')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('phone_number')?.errors?.['required']">
+                        Số điện thoại phải có.
+                    </small>
+                    <small class="text-danger" *ngIf="userProfileForm.get('phone_number')?.errors?.['pattern']">
+                      Số điện thoại không hợp lệ.
+                    </small>
+                  </div>
+                </div>
+              </div> -->
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="address" />
+                  <div *ngIf="userProfileForm.get('address')?.invalid && userProfileForm.get('address')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('address')?.errors?.['required']">
+                      Address is required.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mật khẩu mới</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="password" />
+                  <div *ngIf="userProfileForm.get('password')?.invalid && userProfileForm.get('password')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('password')?.errors?.['required']">
+                     Mật khẩu bắt buộc
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Nhập lại mật khẩu mới</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="retype_password" />
+                  <div *ngIf="userProfileForm.get('retype_password')?.invalid && userProfileForm.get('retype_password')?.touched">
+                    <small class="text-danger" *ngIf="userProfileForm.get('retype_password')?.errors?.['required']">
+                      Nhập lại mật khẩu
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <button type="submit" class="mb-0 btn btn-success">Edit user</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+         </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</section>

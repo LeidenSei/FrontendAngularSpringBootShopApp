@@ -1,0 +1,86 @@
+.border-wrapper{
+    border: 1px solid gray;
+}
+
+.product-quantity{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.product-quantity button{
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+}
+.product-quantity input{
+    border: none;   
+    background-color: transparent;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    color: black;
+    font-size: 16px;
+    text-align: center;
+    width: 40px;
+    margin: 0 10px;
+}
+.product-quantity input:focus{
+    outline: none;
+}
+.title h2{
+    font-weight: 300;
+}
+.table tbody th, td {
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+.table thead{
+    background-color: #808285 !important;
+}
+.table thead tr th{
+    color: #808285;
+}
+.table tbody tr td i{
+    font-size: 30px;
+    color: gray;
+}
+.btn-counpon{
+    background-color: rgb(225, 64, 180);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 18px;
+    padding-left: 18px;
+    border: none;
+    color: white;
+}
+.btn-counpon:hover{
+    background-color: #3f6520;
+}
+.input-coupon:hover{
+    border: none;
+    border: 1px dotted black;
+}
+.table tbody tr td i:hover{
+    font-size: 30px;
+    color: rgb(225, 64, 180); 
+}
+.product-title{
+    color: rgb(194, 136, 177) !important;
+    font-size: 20px;
+    margin: 0 auto;
+}
+.update-cart{
+    width: 200px;
+    background-color: rgb(168, 114, 152);
+    border-radius: none;
+    color: white;
+}
+.cart-total{
+    width: 50%;
+}
+.btn-to-checkout{
+    width: 100%;
+    background-color: rgb(233, 140, 207);
+    color: white;
+    text-transform: uppercase;
+}

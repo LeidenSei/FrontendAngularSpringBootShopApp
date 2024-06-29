@@ -9,9 +9,11 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './guards/auth.guard';
-import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { AdminGuardFn } from './guards/admin.guard';
-import { OrdersAdminComponent } from './components/admin/orders/orders.admin.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { ListOrderedComponent } from './components/list-ordered/list-ordered.component';
+import { OrderedDetailComponent } from './components/ordered-detail/ordered-detail.component';
 
 
 const routes:Routes = [
@@ -19,10 +21,14 @@ const routes:Routes = [
   {path: 'login', component:LoginComponent},
   {path: 'register', component:RegisterComponent},
   {path: 'product/:id', component:DetailProductComponent},
-  {path: 'orders', component: OrderComponent, canActivate:[AuthGuard]},
-  {path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuard]},
-  {path: 'order-detail/:id', component:OrderConfirmComponent},
   {path: 'admin', component:AdminComponent, canActivate:[AdminGuardFn]},
+  {path: 'orders', component: OrderComponent, canActivate:[AuthGuard]},
+  {path: 'user-profile', component: UserDetailComponent, canActivate:[AuthGuard], children:[
+    {path : '', component:ListOrderedComponent},
+    {path : 'ordered-detail/:id', component:OrderedDetailComponent}
+  ]},
+  {path: 'order-detail/:id', component:OrderConfirmComponent},
+  {path: 'cart', component:OrdersComponent},
 ]
 
 @NgModule({

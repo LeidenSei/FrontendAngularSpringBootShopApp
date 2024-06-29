@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/common.service';
 import { OrderDto } from 'src/app/dtos/user/order.dto';
 import { environment } from 'src/app/environment/environment';
 import { Product } from 'src/app/models/product';
@@ -39,7 +40,8 @@ export class OrderComponent implements OnInit  {
     private fb: FormBuilder,
     private orderService: OrderService,
     private tokenService:TokenService,
-    private router:Router
+    private router:Router,
+    private commonService:CommonService
   ) {
     this.orderForm = this.fb.group({
       fullname: ['', Validators.required],
@@ -101,7 +103,6 @@ export class OrderComponent implements OnInit  {
   }
 
   applyCoupon(): void {
-    // Apply coupon logic here
   }
 
   placeOrder(): void {
@@ -114,21 +115,26 @@ export class OrderComponent implements OnInit  {
       quantity: cartItem.quantity
     }));
     this.orderData.total_money = this.totalAmount;
-
+  
+    console.log("Order Data:", this.orderData);
+  
     this.orderService.order(this.orderData).subscribe({
       next: (response) => {
-        alert("Order placed successfully.");
+       this.commonService.showAlerAside("Đặt hàng thành công", "success")
         this.cartService.clearCart();
-        this.router.navigate(['/order-detail',response.id])
+        this.router.navigate(['/order-detail', response.id]);
       },
       complete: () => {
         this.calculateTotal();
       },
       error: (error: any) => {
         console.log("Error placing order:", error);
+        console.error("HTTP status:", error.status);
+        console.error("Error message:", error.message);
       }
     });
   }
+  
   removeOneOrder(id:number){
     this.cartService.removeFromCart(id);
    

@@ -16,7 +16,10 @@ import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminModule } from './components/admin/admin.module';
-import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { OrderedDetailComponent } from './components/ordered-detail/ordered-detail.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ListOrderedComponent } from './components/list-ordered/list-ordered.component';
 // import { AdminComponent } from './components/admin/admin.component';
 
 // import { OrdersAdminComponent } from './components/admin/orders/orders.admin.component';
@@ -33,7 +36,10 @@ import { UserProfileComponent } from './components/user-profile/user.profile.com
     RegisterComponent,
     DetailProductComponent,
     AppComponent,
-    UserProfileComponent,
+    OrderedDetailComponent,
+    UserDetailComponent,
+    OrdersComponent,
+    ListOrderedComponent
     //admin
     // AdminComponent,
     // OrdersAdminComponent,
